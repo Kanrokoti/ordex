@@ -1,5 +1,5 @@
-/* @fn new Kuma3ary(t,a)
- * @brief initialize a new object for kuma kuma 3-ary Psi by t and a.
+/* @fn new Wormbasedpsi(t,a)
+ * @brief initialize a new object for worm based psi by t and a.
  * @param t = {"0", "1", "2", ... , "9", "w","+",","} = initialize type
  *  When t = "0" -- "9", the object is initialized as the natural number.
  *  When t = "w"       , the object is initialized as the first transfinite ordinal.
@@ -7,7 +7,7 @@
  *  When t = "," and a=[a0,a1,...,aN], the object is initialized as the ordinal which indicates (a0,a1,a2,...,aN).
  * @param a = parameter set for "+" and ",". see reference for t.
  */
-Kuma3ary = function(t,a){
+Wormbasedpsi = function(t,a){
   /* programmer memo: Define conversion from suger syntax to the object here. */
   switch(t){
     case "0":
@@ -16,22 +16,22 @@ Kuma3ary = function(t,a){
     return;
     case "1":
       this.t=",";
-      this.a=[new Kuma3ary("0"), new Kuma3ary("0"), new Kuma3ary("0")];
+      this.a=[new Wormbasedpsi("0"), new Wormbasedpsi("0")];
     return;
     case "w":
       this.t=",";
-      this.a=[new Kuma3ary("0"), new Kuma3ary("0"), new Kuma3ary("1")];
+      this.a=[new Wormbasedpsi("0"), new Wormbasedpsi("1")];
     return;
     case "W":
       this.t=",";
-      this.a=[new Kuma3ary("0"), new Kuma3ary("1"), new Kuma3ary("0")];
+      this.a=[new Wormbasedpsi("1"), new Wormbasedpsi("0")];
     return;
     case "e":
       this.t=",";
-      this.a=[new Kuma3ary("0"), new Kuma3ary("0"), new Kuma3ary("W")];
+      this.a=[new Wormbasedpsi("0"), new Wormbasedpsi("W")];
     return;
     case "z":
-      var k=Kuma3ary.parse("(0,0,(0,1,W))");
+      var k=Wormbasedpsi.parse("(0,0,(0,1,W))");
       this.t=k.t;
       this.a=k.a;
     return;
