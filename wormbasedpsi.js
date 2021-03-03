@@ -273,14 +273,15 @@ Wormbasedpsi.prototype.dom=function(){
 
 /* 基本列 */
 /* ここでは、基本列という概念を先で定義した共終数を用いて定義する。 */
-Kuma3ary.prototype.expand=function(Y){
-  if(!Y instanceof Kuma3ary) throw new Error("Y is not Kuma3ary object.");
+/* めんどくさいのでくま3のを2変数に直して流用します。定義としては2変数のとほとんど同じなので。 */
+Wormbasedpsi.prototype.expand=function(Y){
+  if(!Y instanceof Wormbasedpsi) throw new Error("Y is not Wormbasedpsi object.");
   var dom = function(A){return A.dom();};
-  var lt = Kuma3ary.lt;
-  var k0 = Kuma3ary.k0;
-  var kw = Kuma3ary.kw;
+  var lt = Wormbasedpsi.lt;
+  var k0 = Wormbasedpsi.k0;
+  var kw = Wormbasedpsi.kw;
   var X  = this;
-  var newk = function(X_1,X_2,X_3){return new Kuma3ary(",",[X_1,X_2,X_3]);};
+  var newk = function(X_1,X_2,X_3){return new Wormbasedpsi(",",[X_1,X_2,X_3]);};
   /* 1.            もしX=0ならば、    X[Y]=0である。 */
                     if(X.iszero()) return k0;
   /* 2. ここでX=ψ_{X_1}(X_2,X_3)を満たすX_1,X_2,X_3∈Tが存在するとする。 */
