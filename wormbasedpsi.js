@@ -248,9 +248,9 @@ Wormbasedpsi.prototype.dom=function(){
   /* 2-1.         ここでdom(X_2)=0とする。 */
   /* 2-1     */   if(   dom(X_2).iszero()){
   /* 2-1-1.         もしdom(X_1)=0    または dom(X_1)=$1ならば、dom(X)=Xである。 */
-  /* 2-1-1 */       if( dom(X_1).iszero() || dom(X_1).isone())  return X ;
+  /* 2-1-1   */     if( dom(X_1).iszero() || dom(X_1).isone())  return X ;
   /* 2-1-2.         もしdom(X_1)≠0        ,          $1ならば、dom(X)=dom(X_1)である。 */
-  /* 2-1-2 */       if(!dom(X_1).iszero() &&!dom(X_1).isone())  return dom(X_1);
+  /* 2-1-2   */     if(!dom(X_1).iszero() &&!dom(X_1).isone())  return dom(X_1);
                   }
   /* 2-2.         もしdom(X_2)=$1   またはdom(X_2)=$ωならば、dom(X)=$ωである。 */
   /* 2-2     */   if( dom(X_2).isone() || dom(X_2).isw())     return kw;
@@ -281,62 +281,20 @@ Wormbasedpsi.prototype.expand=function(Y){
   var k0 = Wormbasedpsi.k0;
   var kw = Wormbasedpsi.kw;
   var X  = this;
-  var newk = function(X_1,X_2,X_3){return new Wormbasedpsi(",",[X_1,X_2,X_3]);};
+  var newk = function(X_1,X_2){return new Wormbasedpsi(",",[X_1,X_2]);};
   /* 1.            もしX=0ならば、    X[Y]=0である。 */
                     if(X.iszero()) return k0;
-  /* 2. ここでX=ψ_{X_1}(X_2,X_3)を満たすX_1,X_2,X_3∈Tが存在するとする。 */
+  /* 2. ここでX=ψ_{X_1}(X_2)を満たす(X_1,X_2)∈T^2が存在するとする。 */
   /* 2           */ else if(X.isPT  ()){
-  /*             */   var X_1 = X.a[0]; var X_2 = X.a[1]; var X_3 = X.a[2];
-  /* 2-1.             ここでdom(X_3)=0とする。 */
-  /* 2-1         */   if(   dom(X_3).iszero()){
-  /* 2-1-1.             ここでdom(X_2)=0とする。 */
-  /* 2-1-1       */     if(   dom(X_2).iszero()){
-  /* 2-1-1-1.             もしdom(X_1)=0ならば、 X[Y]   =0である。 */
-  /* 2-1-1-1     */       if( dom(X_1).iszero()) return k0;
-  /* 2-1-1-2.             もしdom(X_1)=$1ならば、X[Y]  = Yである。 */
-  /* 2-1-1-2     */       if( dom(X_1).isone ()) return  Y;
-  /* 2-1-1-3.             もしdom(X_1)≠0       ,          $1ならば、   X[Y]=ψ_{X_1 [      Y]}(X_2,X_3)である。 */
-  /* 2-1-1-3     */       if(!dom(X_1).iszero()&&!dom(X_1).isone())  return newk(X_1.expand(Y), X_2,X_3);
-  /*             */     }
-  /* 2-1-2.             もしdom(X_2)=$1ならば、X[Y]  =Yである。 */
-  /* 2-1-2       */     if(   dom(X_2).isone ()) return Y;
-  /* 2-1-3.             ここでdom(X_2)≠0       ,          $1とする。 */
-  /* 2-1-3       */     if(  !dom(X_2).iszero()&&!dom(X_2).isone()){
-  /* 2-1-3-1.             もし  dom(X_2)<Xならば、X[Y]=ψ_{X_1}(X_2[       Y],X_3)である。 */
-  /* 2-1-3-1     */       if(lt(dom(X_2),X))   return newk(X_1, X_2.expand(Y),X_3);
-  /* 2-1-3-2.             そうでないならば、dom(X_2)=ψ_{P}(Q,0) (P,Q∈T)とおく。 */
-  /* 2-1-3-2     */       else{
-  /*             */         var P=dom(X_2).a[0]; 
-  /*             */         var Q=dom(X_2).a[1];
-  /* 2-1-3-2-1.             ここでQ=0とする。 */
-  /* 2-1-3-2-1   */         if(   Q.iszero()){
-  /* 2-1-3-2-1-1.             もしY=$h (1≦h<∞)かつ X[Y[0]]=ψ_{X_1}(Γ,X_3)となるΓ∈Tが一意に存在するならば、*/
-  /* 2-1-3-2-1-1 */           if(!Y.iszero() && Y.isfinite()){
-  /*             */             var Gamma=X.expand(Y.expand(k0)).a[1];
-  /* ?????                    X[Y]=ψ_{X_1}(X_2[        ψ_{P       [ 0]}(Γ   ,  0)],X_3)である。 */
-  /*             */             return newk(X_1, X_2.expand(newk(P.expand(k0), Gamma, k0)),X_3);
-  /*             */           }
-  /* 2-1-3-2-1-2.             そうでないならば */
-  /*             */           else{
-  /*                            X[Y]=   ψ_{X_1}(X_2[        ψ_{P       [ 0]}(Q    ,  0)],X_3)である。 */
-  /*             */             return newk(X_1, X_2.expand(newk(P.expand(k0), Q,     k0)),X_3);
-  /*             */           }
-  /*             */         }
-  /* 2-1-3-2-2.             ここでQ≠0とする。 */
-  /* 2-1-3-2-2   */         if(  !Q.iszero()){
-  /* 2-1-3-2-2-1.             もしY=$h (1≦h<∞)かつ*/ 
-  /* 2-1-3-2-2-1 */           if(!Y.iszero() && Y.isfinite()){
-  /*                            X[Y[0]]=ψ_{X_1}(Γ,X_3)となるΓ∈Tが一意に存在するならば、 */
-  /*             */             var Gamma=X.expand(Y.expand(k0)).a[1];
-  /* ?????                 X[Y]=   ψ_{X_1}(X_2       [ ψ_{P}(Q[0],Γ)],X_3)である。 */
-  /*             */             return newk(X_1, X_2.expand(newk(P.expand(k0), Q, Gamma)),X_3);
-  /*             */           }
-  /* 2-1-3-2-2-2.             そうでないならば、 */
-  /* 2-1-3-2-2-2 */           else{
-  /*                            X[Y]=   ψ_{X_1}(X_2       [ ψ_{P}(Q       [ 0], 0)],X_3)である。*/
-  /*             */             return newk(X_1, X_2.expand(newk(P, Q.expand(k0),k0)),X_3);
-  /*             */           }
-  /*             */         }
+  /*             */   var X_1 = X.a[0]; var X_2 = X.a[1];
+  /* 2-1.             ここでdom(X_2)=0とする。 */
+  /* 2-1         */   if(   dom(X_2).iszero()){
+  /* 2-1-1.             もしdom(X_1)=0        ,  1ならば、 X[Y]     = Yである。 */
+  /* 2-1-1       */     if( dom(X_1).iszero() || dom(X_1).isone ()) return Y;
+  /* 2-1-3.             もしdom(X_1)≠0       ,          $1ならば、   X[Y]=ψ_{X_1 [      Y]}(X_2)である。 */
+  /* 2-1-3       */     if(!dom(X_1).iszero()&&!dom(X_1).isone())  return newk(X_1.expand(Y), X_2);
+  /*             */   }
+ 
   /*             */       }
   /*             */     }
   /*             */   }
