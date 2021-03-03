@@ -79,13 +79,13 @@ Wormbasedpsi.toSugar = function(str){
     case "(1,0)":
     return "W";
     
-    case "(0,w)": case "(0,0,W)":
+    case "(0,w)":
     return "e";
     
-    case "(0,(0,1,W))": case "(0,0,(0,1,W))":
+    case "(0,w+w)":
     return "z";
     
-    case "(0,(0,1,(0,1,W)))": case "(0,0,(0,1,(0,1,W)))":
+    case "(0,W)":
     return "G";
   }
   return str;
