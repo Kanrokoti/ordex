@@ -232,48 +232,37 @@ Wormbasedpsi.lt=function(X,Y){
 }
 
 /* 共終数 */
-/* ここでは、共終数という概念を定義する。 */
-Kuma3ary.prototype.dom=function(){
+/* ここでは、表記における共終数を定義する。 */
+/* めんどくさいのでくま3のを2変数に直して流用します。定義としては同値のはずなので。 */
+Wormbasedpsi.prototype.dom=function(){
   var dom = function(A){return A.dom();};
-  var lt = Kuma3ary.lt;
-  var kw = Kuma3ary.kw;
-  var k0 = Kuma3ary.k0;
+  var lt = Wormbasedpsi.lt;
+  var kw = Wormbasedpsi.kw;
+  var k0 = Wormbasedpsi.k0;
   var X  = this;
   /* 1.      もし  X=0ならば、dom(X) = 0である。 */
   /* 1       */ if(X.iszero()) return k0;
-  /* 2.         ここでX=ψ_{X_1}(X_2,X_3)を満たすX_1,X_2,X_3∈Tが存在するとする。 */
+  /* 2.         ここでX=ψ_{X_1}(X_2)を満たす(X_1,X_2)∈T^2が存在するとする。 */
   /* 2       */ if(X.isPT  ()){
-  /*         */   var X_1 = X.a[0]; var X_2 = X.a[1]; var X_3 = X.a[2];
-  /* 2-1.         ここでdom(X_3)=0とする。 */
-  /* 2-1     */   if(   dom(X_3).iszero()){
-  /* 2-1-1.        ここでdom(X_2)=0とする。 */
-  /* 2-1-1   */     if(  dom(X_2).iszero()){
-  /* 2-1-1-1.         もしdom(X_1)=0    または dom(X_1)=$1ならば、dom(X)=Xである。 */
-  /* 2-1-1-1 */       if( dom(X_1).iszero() || dom(X_1).isone())  return X ;
-  /* 2-1-1-2.         もしdom(X_1)≠0        ,          $1ならば、dom(X)=dom(X_1)である。 */
-  /* 2-1-1-2 */       if(!dom(X_1).iszero() &&!dom(X_1).isone())  return dom(X_1);
-                    }
-  /* 2-1-2.         もしdom(X_2)=$1ならば、dom(X)=Xである。 */
-                    if( dom(X_2).isone()) return  X;
-  /* 2-1-3.         ここでdom(X_2)≠0       ,            $1とする。 */
-  /* 2-1-3   */     if(  !dom(X_2).iszero() && !dom(X_2).isone()){
-  /* 2-1-3-1.         もし  dom(X_2)<Xならば、dom(X)=dom(X_2)である。 */
-  /* 2-1-3-1 */       if(lt(dom(X_2),X))      return dom(X_2);
-  /* 2-1-3-2.         そうでないならば、      dom(X)=$ωである。 */
-  /* 2-1-3-2 */       else                    return kw;
-  /*         */     }
-  /*         */   }
-  /* 2-2.         もしdom(X_3)=$1   またはdom(X_3)=$ωならば、dom(X)=$ωである。 */
-  /* 2-2     */   if( dom(X_3).isone() || dom(X_3).isw())     return kw;
-  /* 2-3.             dom(X_3)≠0       ,            $1      ,            $ωとする。 */
-  /* 2-3     */   if(!dom(X_3).iszero() && !dom(X_3).isone() && !dom(X_3).isw()){
-  /* 2-3-1.         もし  dom(X_3)<Xならば、dom(X)=dom(X_3)である。 */
-  /* 2-3-1   */     if(lt(dom(X_3),X))return       dom(X_3);
+  /*         */   var X_1 = X.a[0]; var X_2 = X.a[1];
+  /* 2-1.         ここでdom(X_2)=0とする。 */
+  /* 2-1     */   if(   dom(X_2).iszero()){
+  /* 2-1-1.         もしdom(X_1)=0    または dom(X_1)=$1ならば、dom(X)=Xである。 */
+  /* 2-1-1 */       if( dom(X_1).iszero() || dom(X_1).isone())  return X ;
+  /* 2-1-2.         もしdom(X_1)≠0        ,          $1ならば、dom(X)=dom(X_1)である。 */
+  /* 2-1-2 */       if(!dom(X_1).iszero() &&!dom(X_1).isone())  return dom(X_1);
+                  }
+  /* 2-2.         もしdom(X_2)=$1   またはdom(X_2)=$ωならば、dom(X)=$ωである。 */
+  /* 2-2     */   if( dom(X_2).isone() || dom(X_2).isw())     return kw;
+  /* 2-3.             dom(X_2)≠0       ,            $1      ,            $ωとする。 */
+  /* 2-3     */   if(!dom(X_2).iszero() && !dom(X_2).isone() && !dom(X_2).isw()){
+  /* 2-3-1.         もし  dom(X_2)<Xならば、dom(X)=dom(X_2)である。 */
+  /* 2-3-1   */     if(lt(dom(X_2),X))return       dom(X_2);
   /* 2-3-2.         そうでないならば、dom(X)=$ωである。 */
   /* 2-3-2   */     else              return kw;
   /*         */   }
   /*         */ }
-  /* 3.         もしX=X_1+...+X_mを満たすX_1,...,X_m∈PT (2≦m<∞)が存在するならば、*/
+  /* 3.         もしX=X_1+...+X_mを満たすm∈(N\{0,1})∧(X_1,...,X_m)∈PT^mが存在するならば、*/
   /* 3       */ if(X.isadd()){
   /*              dom(X)= dom(X_  m            )である。 */
                   return  dom(X.a[X.a.length-1]);
