@@ -169,8 +169,9 @@ Wormbasedpsi.kW=new Wormbasedpsi("W");
 Kanrokoti, "虫ベースψ関数", 巨大数研究 Wiki, 2021-03-04T01:17:40.
   revision 34803, https://googology.wikia.org/ja/wiki/%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E3%83%96%E3%83%AD%E3%82%B0:Kanrokoti/%E8%99%AB%E3%83%99%E3%83%BC%E3%82%B9%CF%88%E9%96%A2%E6%95%B0?oldid=34803
   ---------------------------------------------------------------------------*/
-/* 順序 ここでは、表記間の大小関係を定義する。 */
-/* X,Y∈Tに対し、2項関係X<Yを以下のように再帰的に定める: */
+/* 順序 ここでは、表記における大小関係を辞書式順序で定義する。 */
+/* T上の2項関係s≦tとs<tを以下のように同時に再帰的に定める: */
+/* s≦tは使わないのでs<tのみをプログラムします。 */
 Kuma3ary.lt=function(X,Y){
   if(!X instanceof Kuma3ary) throw new Error("X is not Kuma3ary object.");
   if(!Y instanceof Kuma3ary) throw new Error("Y is not Kuma3ary object.");
