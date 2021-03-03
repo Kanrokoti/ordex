@@ -279,6 +279,7 @@ Wormbasedpsi.prototype.expand=function(Y){
   var dom = function(A){return A.dom();};
   var lt = Wormbasedpsi.lt;
   var k0 = Wormbasedpsi.k0;
+  var k1 = Wormbasedpsi.k1;
   var kw = Wormbasedpsi.kw;
   var X  = this;
   var newk = function(X_1,X_2){return new Wormbasedpsi(",",[X_1,X_2]);};
@@ -333,12 +334,19 @@ Wormbasedpsi.prototype.expand=function(Y){
   /*             */ }
   /* 3.             ここでX=X_1+...+X_mを満たすm∈(N\{0,1})∧(X_1,...,X_m)∈PT^mが存在するとする。 */
   /* 3           */ if(X.isadd()){
-  /*             */   var m=X.a.length;
-                      if(){
-                         
+  /*             */   var m = X.a.length;
+                      var X_m = X.a[m-1];
+                      if(dom(X_m.a[1]).isone()){
+                        var h=Y.toint();
+                        if(1<=h && h!=-1){
+                           
+                        }else{
+                          var X_1_t0__X__mm1 = X.slice(0,m-1);
+                          return X_1_t0__X__mm1.addright(X_m.expand(k1));
+                        }
                       }else{
                         var X_1_t0__X__mm1 = X.slice(0,m-1);
-                        var X_m_Y          = X.a[m-1].expand(Y);
+                        var X_m_Y          = X_m.expand(Y);
   /* 3-1.               もしX_m[Y]=0        かつm= 2ならば、X[Y]=X_1である。 */
   /* 3-1         */     if( X_m_Y .iszero() &&  m==2)     return X.a[0];
   /* 3-2.               もしX_m[Y]=0        かつm> 2ならば、X[Y]=X_1+...+X_{m-1}である。 */
