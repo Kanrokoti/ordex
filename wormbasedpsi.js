@@ -409,36 +409,36 @@ Kuma3ary.prototype.expand=function(Y){
                     }
 }
 
-Kuma3ary.prototype.countzero=function(){
+Wormbasedpsi.prototype.countzero=function(){
   var retval=0;
   if(this.iszero()) return 1;
   else{
     for(var i=0;i<this.a.length;i++) retval += this.a[i].countzero();
   }
 }
-Kuma3ary.prototype.isstd=function(){
+Wormbasedpsi.prototype.isstd=function(){
   var X=this;
-  var lt=Kuma3ary.lt;
-  var lt=Kuma3ary.eq;
+  var lt=Wormbasedpsi.lt;
+  var lt=Wormbasedpsi.eq;
   if(X.iszero())return true;
   else if(X.isPT()){
-    /* make S minimum (0,0,C) which S<X 
-       C=((((...(0,0,0),0,0),0,0)...),0,0) */
-    var C=Kuma3ary.k0;
+    /* make S minimum (0,C) which S<X 
+       C=((((...(0,0),0),0)...),0) */
+    var C=Wormbasedpsi.k0;
     var S;
     while(1){
-      S=new Kuma3ary(",",[0,0,C]);
+      S=new Wormbasedpsi(",",[0,C]);
       if(lt(X,S)){
         break;
       }
-      C=new Kuma3ary(",",[C,0,0]); //upgrade C
+      C=new Wormbasedpsi(",",[C,0]); //upgrade C
     }
     if(eq(S,X)) return true;
     
     /* apply [0] to S while X.countzero()<S.countzero() */
     Xcountzero = X.countzero();
     while(Xcountzero<S.countzero()){
-      S=S.expand(Kuma3ary.k0);
+      S=S.expand(Wormbasedpsi.k0);
     }
     if(eq(S,X)) return true;
     
