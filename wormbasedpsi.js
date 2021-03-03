@@ -64,7 +64,7 @@ Wormbasedpsi = function(t,a){
 
 /* @fn Wormbasedpsi.toSugar
  * @brief Callback for sugar for toString(sugar). 
- * @detail When you use kuma.toString(), if you add the function for the parameter of toString() like kuma.toString(Kuma3ary.toSugar), toString will become to use the sugar syntax defined in the function. 
+ * @detail When you use kuma.toString(), if you add the function for the parameter of toString() like kuma.toString(Wormbasedpsi.toSugar), toString will become to use the sugar syntax defined in the function. 
  * @param str = input string from toString().
  * @returns str = modified string which is finally output by toString(). */
 Wormbasedpsi.toSugar = function(str){
@@ -91,21 +91,21 @@ Wormbasedpsi.toSugar = function(str){
   return str;
 }
 
-/* programmer memo: Please put the code as following to make the type Kuma3ary the extension of the type Ordinal. */
+/* programmer memo: Please put the code as following to make the type Wormbasedpsi the extension of the type Ordinal. */
 /* ------------------0---------------------------------- begin */
-Kuma3ary.prototype = Object.create(Ordinal.prototype);
-Object.defineProperty(Kuma3ary.prototype, 'constructor', 
-  {value:Kuma3ary, enumerable:false, writable:true});
-Kuma3ary.parse     = Ordinal.parse;
-Kuma3ary.add       = Ordinal.add;
-Kuma3ary.cat       = Ordinal.cat;
+Wormbasedpsi.prototype = Object.create(Ordinal.prototype);
+Object.defineProperty(Wormbasedpsi.prototype, 'constructor', 
+  {value:Wormbasedpsi, enumerable:false, writable:true});
+Wormbasedpsi.parse     = Ordinal.parse;
+Wormbasedpsi.add       = Ordinal.add;
+Wormbasedpsi.cat       = Ordinal.cat;
 /* ----------------------------------------------------- end */
 
-Kuma3ary.prototype.normalize = function(){
+Wormbasedpsi.prototype.normalize = function(){
   Ordinal.prototype.normalize();
   if(this.t==","){
-    if(this.a.length==1) this.a=[].concat([Kuma3ary.k0,Kuma3ary.k0],this.a);
-    if(this.a.length==2) this.a=[].concat([Kuma3ary.k0            ],this.a);
+    if(this.a.length==1) this.a=[].concat([Wormbasedpsi.k0,Wormbasedpsi.k0],this.a);
+    if(this.a.length==2) this.a=[].concat([Wormbasedpsi.k0            ],this.a);
   }
 }
 Kuma3ary.prototype.iszero=function(){return this.eq(k0);}
