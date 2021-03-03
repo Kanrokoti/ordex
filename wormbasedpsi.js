@@ -339,6 +339,9 @@ Wormbasedpsi.prototype.expand=function(Y){
                       if(dom(X_m.a[1]).isone()){
                         var h=Y.toint();
                         if(1<=h && h!=-1){
+                          var X_mb' = X_m.a[1].expand(k0);
+                          var j = h;
+                          
                            
                         }else{
                           var X_1_t0__X__mm1 = X.slice(0,m-1);
