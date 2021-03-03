@@ -173,44 +173,43 @@ Kanrokoti, "虫ベースψ関数", 巨大数研究 Wiki, 2021-03-04T01:17:40.
 /* 順序 ここでは、表記における大小関係を辞書式順序で定義する。 */
 /* T上の2項関係s≦tとs<tを以下のように同時に再帰的に定める: */
 /* s≦tは使わないのでs<tのみをプログラムします。以降sをX、tをYとして扱います。 */
+/* めんどくさいのでくま3のを2変数に直して流用します。定義としては同値のはずなので。 */
 Wormbasedpsi.lt=function(X,Y){
   if(!X instanceof Wormbasedpsi) throw new Error("X is not Wormbasedpsi object.");
   if(!Y instanceof Wormbasedpsi) throw new Error("Y is not Wormbasedpsi object.");
   var eq = Wormbasedpsi.eq;
   var lt = Wormbasedpsi.lt;
-  /* 1.         Y=0ならば、X<Yは  偽である。 */
-  /* 1       */ if(Y.iszero()) return false;
-  /* 2.         Y≠0かつX=0ならば、X<Yは  真である。 */
-  /* 2       */ if(!Y.iszero() && X.iszero()) return true;
-  /* 3.         Y≠0かつX=X_1+X_2を満たす(X_1,X_2)∈PT×(T\{0})が存在するとする。 */
-  /* 3       */ if(!Y.iszero() && X.isadd()){
+  /* 1.         もしX=0ならば、X<Yは  Y≠0と同値である。 */
+  /* 1       */ if(X.iszero()) return !Y.iszero();
+  /* 2.         ここでX=ψ_{X_1}(X_2)を満たす(X_1,X_2)∈T^2が存在するとする。 */
+  /* 2       */ if(X.isPT  ()){
   /*         */   var X_1 = X.a[0]; var X_2 = X.a[1];
-  /* 3-1.         Y=Y_1+Y_2を満たす(Y_1,Y_2)∈PT×(T\{0})が存在するならば、X<Yは  以下のいずれかが成り立つことと同値である: */
-  /* 3-1     */   if(Y.isadd()){
+  /* 2-1.         もしY=0ならば、X<Yは  偽である。 */
+  /* 2-1     */   if(Y.iszero()) return false;
+  /* 2-2.         ここでY=ψ_{Y_1}(Y_2)を満たす(Y_1,Y_2)∈T^2が存在するとする。 */
+  /* 2-2     */   if(Y.isPT()){
   /*         */     var Y_1 = Y.a[0]; var Y_2 = Y.a[1];
-  /*         */     if(!eq(X_1,Y_1)){
-  /* 3-1-1.           X_1<Y_1である。 */
-  /* 3-1-1   */       return lt(X_1,Y_1);
-  /*         */     }else{
-  /* 3-1-2.           X_1=Y_1かつX_2<Y_2である。 */
-  /* 3-1-2   */       return lt(X_2,Y_2);
-  /*         */     }
+  /* 2-2-2.         もし   X_1= Y_1 かつ    X_2≠Y_2ならば、X<Yは     X_2<Y_2と同値である。*/
+  /* 2-2-2   */     if( eq(X_1, Y_1) && !eq(X_2,Y_2))       return lt(X_2,Y_2);
+  /* 2-2-3.         もし   X_1≠Y_1ならば、                 X<Yは     X_1<Y_1と同値である。 */
+  /* 2-2-3   */     if(!eq(X_1, Y_1)                )       return lt(X_1,Y_1);
   /*         */   }
-  /* 3-2.         Y=ψ_{Y_1}(Y_2)を満たす(Y_1,Y_2)∈T^2が存在するならば、X<YはX_1<Yと同値である。 */
-  /* 3-2     */   if(Y.isPT()){
-  /*         */     var Y_1 = Y.a[0]; var Y_2 = Y.a[1];
-  /*         */     return lt(X_1,Y);
+  /* 2-3.         もしY=Y_1+...+Y_{m'}を満たすm'∈(N\{0,1})∧(Y_1,...,Y_{m'})∈PT^{m'}が存在するならば、 */
+  /* 2-3     */   if(Y.isadd()){
+  /*         */     var Y_1 = Y.a[0]; var Y_2 = Y.a[1]; var Y_3 = Y.a[2];
+  /* ??           X<Yは     X=Y_1  または X<Y_1と同値である。 */
+  /*         */     return eq(X,Y_1) ||  lt(X,Y_1);
   /*         */   }
   /*         */ }
-  /* 4.         Y≠0かつX=ψ_{X_1}(X_2)を満たす(X_1,X_2)∈T^2が存在するとする。 */
+  /* 3.         ここでX=X_1+...+X_mを満たすm∈(N\{0,1})∧(X_1,...,X_m)∈PT^mが存在するとする。 */
   /* 3       */ if(X.isadd()){
   /*         */   var X_1 = X.a[0]; var X_2 = X.a[1]; var X_3 = X.a[2]; var Xm = X.a.length;
   /* 3-1.         もしY=0ならば、X<Yは  偽である。 */
   /* 3-1     */   if(Y.iszero()) return false; 
-  /* 3-2.         もしY=ψ_{Y_1}(Y_2,Y_3)を満たすY_1,Y_2,Y_3∈Tが存在するならば、
+  /* 3-2.         もしY=ψ_{Y_1}(Y_2)を満たす(Y_1,Y_2)∈T^2が存在するならば、
                                  X<Yは     X_1<Y と同値である。 */
   /* 3-2     */   if(Y.isPT  ()) return lt(X_1,Y); 
-  /* 3-3.         ここでY=Y_1+...+Y_{m'}を満たすY_1,...,Y_{m'}∈PT (2≦m'<∞)が存在するとする。 */
+  /* 3-3.         ここでY=Y_1+...+Y_{m'}を満たすm'∈(N\{0,1})∧(Y_1,...,Y_{m'})∈PT^{m'}が存在するとする。 */
   /* 3-3     */   if(Y.isadd ()){ 
   /*         */     var Y_1 = Y.a[0]; var Y_2 = Y.a[1]; var Y_3 = X.a[2]; var Ym = Y.a.length;
   /*         */     var X_2Xm = X.slice(1); /* X_2+X_3+...+Xm */
