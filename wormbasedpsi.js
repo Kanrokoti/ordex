@@ -161,8 +161,8 @@ Wormbasedpsi.kW=new Wormbasedpsi("W");
 
 /** @fn lt(x,y)
   * @brief compare x and y and returns ordering of them.  
-  * @param x = Kuma3ary ordinal notation.
-  * @param y = Kuma3ary ordinal notation.
+  * @param x = Wormbasedpsi ordinal notation.
+  * @param y = Wormbasedpsi ordinal notation.
   * @returns = {true:x<y, false:x>=y}.
   * */
 /*-----------------------------------------------------------------------------
@@ -180,7 +180,10 @@ Wormbasedpsi.lt=function(X,Y){
   /* 1.         Y=0ならば、X<Yは  偽である。 */
   /* 1       */ if(Y.iszero()) return false;
   /* 2.         Y≠0かつX=0ならば、X<Yは  真である。 */
-  /* 1       */ if(!Y.iszero() && X.iszero()) return true;
+  /* 2       */ if(!Y.iszero() && X.iszero()) return true;
+  
+  
+  
   /* 2.         ここでX=ψ_{X_1}(X_2,X_3)を満たすX_1,X_2,X_3∈Tが存在するとする。 */
   /* 2       */ if(X.isPT  ()){
   /*         */   var X_1 = X.a[0]; var X_2 = X.a[1]; var X_3 = X.a[2];
