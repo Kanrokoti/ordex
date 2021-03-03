@@ -37,8 +37,9 @@ Wormbasedpsi = function(t,a){
       this.a=k.a;
     return;
     case "G":
-      this.t=",";
-      this.a=[new Wormbasedpsi("0"), new Wormbasedpsi("W")];
+      var k=Wormbasedpsi.parse("(0,W)");
+      this.t=k.t;
+      this.a=k.a;
     return;
     default:
     break;
