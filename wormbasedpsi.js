@@ -316,35 +316,17 @@ Wormbasedpsi.prototype.expand=function(Y){
   /* 2-4-2.             そうでないならば、dom(X_2)=ψ_{P}(0) (P∈T)とおく。 */
   /* 2-4-2       */     else{
                           var P=dom(X_2).a[0];
-                          var h=Y.toint();
-  /* 2-4-2-1.             ここでQ=0とする。 */
-  /* 2-4-2-1     */       if(Q.iszero()){
-  /* 2-4-2-1-1.             もしY=$h (1≦h<∞)かつ*/
-  /* 2-4-2-1-1   */         if(1<=h && h!=-1){
-  /* ???             ?    X[Y[0]]=ψ_{X_1}(X_2,Γ)となるΓ∈Tが一意に存在するならば、 */
-  /*             */           var Gamma=X.expand(Y.expand(k0)).a[2];
-  /*                             X[Y]=ψ_{X_1}(X_2,X_3       [ψ_{ P       [0 ]}(Γ   , 0)])である。 */
-  /*             */           return newk(X_1, X_2,X_3.expand(newk(P.expand(k0), Gamma,k0)));
-  /* 2-4-2-1-2.             そうでないならば、*/
-  /* 2-4-2-1-2   */         }else{
-  /*                          X[Y]=   ψ_{X_1}(X_2,X_3       [ψ_{ P       [0 ]}(Q     ,0)])である。 */
-  /*             */           return newk(X_1, X_2,X_3.expand(newk(P.expand(k0), Q    ,k0)));
-  /*             */         }
-  /* 2-4-2-2.             ここでQ≠0とする。 */
-  /*             */       }
-  /* 2-4-2-2     */       if(!Q.iszero()){
-  /*             */         var h=Y.toint();
-  /* 2-4-2-2-1.             もしY=$h (1≦h<∞)かつ*/
-  /* 2-4-2-2-1   */         if( 1<=h && h!=-1){
-  /*                          X[Y[0]]=ψ_{X_1}(X_2,Γ)となるΓ∈Tが一意に存在するならば、 */
-  /*             */           var Gamma=X.expand(Y.expand(k0)).a[2];
-  /* ???              ?   X[Y]=   ψ_{X_1}(X_2,X_3       [ ψ_{P}(Q       [ 0],Γ    )])である。 */
-  /*             */           return newk(X_1, X_2,X_3.expand(newk(P, Q.expand(k0), Gamma)));
-  /* 2-4-2-2-2.             そうでないならば、*/
-  /* 2-4-2-2-2   */         }else{
-  /*                          X[Y]=   ψ_{X_1}(X_2,X_3[        ψ_{P}(Q       [0 ],     0)])である。 */
-  /*             */           return newk(X_1, X_2,X_3.expand(newk(P, Q.expand(k0),    k0)));
-  /*             */         }
+  /*             */       var h=Y.toint();
+  /* 2-4-2-2-1.           もしY=$h (1≦h<∞)かつ*/
+  /* 2-4-2-2-1   */       if( 1<=h && h!=-1){
+  /*                        X[Y[0]]=ψ_{X_1}(Γ)となるΓ∈Tが一意に存在するならば、 */
+  /*             */         var Gamma=X.expand(Y.expand(k0)).a[1];
+  /* ???              ? X[Y]=        ψ_{X_1}(X_2       [  ψ_{P[0]}(       ,Γ    )])である。 */
+  /*             */         return newk(X_1, X_2.expand(newk(P.expand(k0), Gamma)));
+  /* 2-4-2-2-2.           そうでないならば、*/
+  /* 2-4-2-2-2   */       }else{
+  /*                        X[Y]=   ψ_{X_1}(X_2[        ψ_{P[0]}(           0)])である。 */
+  /*             */         return newk(X_1, X_2.expand(newk(P.expand(k0), k0)));
   /*             */       }
   /*             */     }
   /*             */   }
