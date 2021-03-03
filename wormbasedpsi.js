@@ -171,14 +171,16 @@ Kanrokoti, "虫ベースψ関数", 巨大数研究 Wiki, 2021-03-04T01:17:40.
   ---------------------------------------------------------------------------*/
 /* 順序 ここでは、表記における大小関係を辞書式順序で定義する。 */
 /* T上の2項関係s≦tとs<tを以下のように同時に再帰的に定める: */
-/* s≦tは使わないのでs<tのみをプログラムします。 */
-Wormbasedpsi.lt=function(s,t){
-  if(!s instanceof Wormbasedpsi) throw new Error("s is not Wormbasedpsi object.");
-  if(!t instanceof Wormbasedpsi) throw new Error("t is not Wormbasedpsi object.");
+/* s≦tは使わないのでs<tのみをプログラムします。以降sをX、tをYとして扱います。 */
+Wormbasedpsi.lt=function(X,Y){
+  if(!X instanceof Wormbasedpsi) throw new Error("X is not Wormbasedpsi object.");
+  if(!Y instanceof Wormbasedpsi) throw new Error("Y is not Wormbasedpsi object.");
   var eq = Wormbasedpsi.eq;
   var lt = Wormbasedpsi.lt;
-  /* 1.         t=0ならば、X<Yは  Y≠0と同値である。 */
-  /* 1       */ if(X.iszero()) return !Y.iszero();
+  /* 1.         Y=0ならば、X<Yは  偽である。 */
+  /* 1       */ if(Y.iszero()) return false;
+  /* 2.         Y≠0かつX=0ならば、X<Yは  真である。 */
+  /* 1       */ if(!Y.iszero() && X.iszero()) return true;
   /* 2.         ここでX=ψ_{X_1}(X_2,X_3)を満たすX_1,X_2,X_3∈Tが存在するとする。 */
   /* 2       */ if(X.isPT  ()){
   /*         */   var X_1 = X.a[0]; var X_2 = X.a[1]; var X_3 = X.a[2];
