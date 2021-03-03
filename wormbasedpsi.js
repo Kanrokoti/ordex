@@ -172,12 +172,12 @@ Kanrokoti, "虫ベースψ関数", 巨大数研究 Wiki, 2021-03-04T01:17:40.
 /* 順序 ここでは、表記における大小関係を辞書式順序で定義する。 */
 /* T上の2項関係s≦tとs<tを以下のように同時に再帰的に定める: */
 /* s≦tは使わないのでs<tのみをプログラムします。 */
-Kuma3ary.lt=function(X,Y){
-  if(!X instanceof Kuma3ary) throw new Error("X is not Kuma3ary object.");
-  if(!Y instanceof Kuma3ary) throw new Error("Y is not Kuma3ary object.");
-  var eq = Kuma3ary.eq;
-  var lt = Kuma3ary.lt;
-  /* 1.         もしX=0ならば、X<Yは  Y≠0と同値である。 */
+Wormbasedpsi.lt=function(s,t){
+  if(!s instanceof Wormbasedpsi) throw new Error("s is not Wormbasedpsi object.");
+  if(!t instanceof Wormbasedpsi) throw new Error("t is not Wormbasedpsi object.");
+  var eq = Wormbasedpsi.eq;
+  var lt = Wormbasedpsi.lt;
+  /* 1.         t=0ならば、X<Yは  Y≠0と同値である。 */
   /* 1       */ if(X.iszero()) return !Y.iszero();
   /* 2.         ここでX=ψ_{X_1}(X_2,X_3)を満たすX_1,X_2,X_3∈Tが存在するとする。 */
   /* 2       */ if(X.isPT  ()){
