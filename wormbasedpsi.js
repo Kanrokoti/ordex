@@ -108,15 +108,15 @@ Wormbasedpsi.prototype.normalize = function(){
     if(this.a.length==2) this.a=[].concat([Wormbasedpsi.k0            ],this.a);
   }
 }
-Kuma3ary.prototype.iszero=function(){return this.eq(k0);}
-Kuma3ary.prototype.isone =function(){return this.eq(k1);}
-Kuma3ary.prototype.isw   =function(){return this.eq(kw);}
-Kuma3ary.prototype.isPT  =function(){return this.t==",";}
-Kuma3ary.prototype.isadd =function(){return this.t=="+";}
-Kuma3ary.prototype.slice =function(s,e){ return new Kuma3ary(this.t, this.a.slice(s,e));}
-Kuma3ary.prototype.eq    =function(x){return Kuma3ary.eq(this,x);}
-Kuma3ary.prototype.lt    =function(x){return Kuma3ary.lt(this,x);}
-Kuma3ary.prototype.isfinite=function(){
+Wormbasedpsi.prototype.iszero=function(){return this.eq(k0);}
+Wormbasedpsi.prototype.isone =function(){return this.eq(k1);}
+Wormbasedpsi.prototype.isw   =function(){return this.eq(kw);}
+Wormbasedpsi.prototype.isPT  =function(){return this.t==",";}
+Wormbasedpsi.prototype.isadd =function(){return this.t=="+";}
+Wormbasedpsi.prototype.slice =function(s,e){ return new Wormbasedpsi(this.t, this.a.slice(s,e));}
+Wormbasedpsi.prototype.eq    =function(x){return Wormbasedpsi.eq(this,x);}
+Wormbasedpsi.prototype.lt    =function(x){return Wormbasedpsi.lt(this,x);}
+Wormbasedpsi.prototype.isfinite=function(){
   if(this.t=="0") return true;
   if(this.t=="+"){
     for(var i=0;i<this.a.length;i++){
@@ -127,7 +127,7 @@ Kuma3ary.prototype.isfinite=function(){
     return this.isone();
   }
 }
-Kuma3ary.prototype.toint=function(){
+Wormbasedpsi.prototype.toint=function(){
   switch(this.t){
     case "0": return 0;
     case "+": return this.isfinite()?this.a.length:-1;
@@ -135,28 +135,28 @@ Kuma3ary.prototype.toint=function(){
     default : return -1;
   }
 }
-Kuma3ary.prototype.mul=function(n){
-  if(n==0)return Kuma3ary.k0;
+Wormbasedpsi.prototype.mul=function(n){
+  if(n==0)return Wormbasedpsi.k0;
   if(n==1)return this;
   var a=new Array(n);
   for(var i=0;i<a.length;i++) a[i]=this;
-  return new Kuma3ary("+",a);
+  return new Wormbasedpsi("+",a);
 }
 
-Kuma3ary.eq=function(x,y){
+Wormbasedpsi.eq=function(x,y){
   if(x.t!=y.t) return false;
   if(x.a instanceof Array && y.a instanceof Array){
     if(x.a.length!=y.a.length) return false;
     for(var i=0;i<x.a.length;i++){
-      if(!Kuma3ary.eq(x.a[i],y.a[i])) return false;
+      if(!Wormbasedpsi.eq(x.a[i],y.a[i])) return false;
     }
   }
   return true;
 }
-Kuma3ary.k0=new Kuma3ary("0");
-Kuma3ary.k1=new Kuma3ary("1");
-Kuma3ary.kw=new Kuma3ary("w");
-Kuma3ary.kW=new Kuma3ary("W");
+Wormbasedpsi.k0=new Wormbasedpsi("0");
+Wormbasedpsi.k1=new Wormbasedpsi("1");
+Wormbasedpsi.kw=new Wormbasedpsi("w");
+Wormbasedpsi.kW=new Wormbasedpsi("W");
 /* original part -------------------------------------------------------------------------------*/
 
 /** @fn lt(x,y)
