@@ -27,18 +27,18 @@ Wormbasedpsi = function(t,a){
       this.a=[new Wormbasedpsi("1"), new Wormbasedpsi("0")];
     return;
     case "e":
-      this.t=",";
-      this.a=[new Wormbasedpsi("0"), new Wormbasedpsi("W")];
+      var k=Wormbasedpsi.parse("(0,w)");
+      this.t=k.t;
+      this.a=k.a;
     return;
     case "z":
-      var k=Wormbasedpsi.parse("(0,(0,(0,0))+(0,(0,0)))");
+      var k=Wormbasedpsi.parse("(0,w+w)");
       this.t=k.t;
       this.a=k.a;
     return;
     case "G":
-      var k=Wormbasedpsi.parse("(0,W)");
-      this.t=k.t;
-      this.a=k.a;
+      this.t=",";
+      this.a=[new Wormbasedpsi("0"), new Wormbasedpsi("W")];
     return;
     default:
     break;
@@ -62,24 +62,24 @@ Wormbasedpsi = function(t,a){
   }
 }
 
-/* @fn Kuma3ary.toSugar
+/* @fn Wormbasedpsi.toSugar
  * @brief Callback for sugar for toString(sugar). 
  * @detail When you use kuma.toString(), if you add the function for the parameter of toString() like kuma.toString(Kuma3ary.toSugar), toString will become to use the sugar syntax defined in the function. 
  * @param str = input string from toString().
  * @returns str = modified string which is finally output by toString(). */
-Kuma3ary.toSugar = function(str){
+Wormbasedpsi.toSugar = function(str){
   /* programmer memo: Define conversion from the object to the suger syntax here. */
   switch(str){
-    case "(0)": case "(0,0)": case "(0,0,0)":
+    case "(0)": case "(0,0)":
     return "1";
     
-    case "(1)": case "(0,0,1)": case "(0,0,1)":
+    case "(1)": case "(0,1)":
     return "w";
     
-    case "(1,0)": case "(0,1,0)":
+    case "(1,0)":
     return "W";
     
-    case "(0,W)": case "(0,0,W)":
+    case "(0,w)": case "(0,0,W)":
     return "e";
     
     case "(0,(0,1,W))": case "(0,0,(0,1,W))":
