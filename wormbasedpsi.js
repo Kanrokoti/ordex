@@ -31,12 +31,12 @@ Wormbasedpsi = function(t,a){
       this.a=[new Wormbasedpsi("0"), new Wormbasedpsi("W")];
     return;
     case "z":
-      var k=Wormbasedpsi.parse("(0,0,(0,1,W))");
+      var k=Wormbasedpsi.parse("(0,(0,(0,0))+(0,(0,0)))");
       this.t=k.t;
       this.a=k.a;
     return;
     case "G":
-      var k=Kuma3ary.parse("(0,0,(0,1,(0,1,W)))");
+      var k=Wormbasedpsi.parse("(0,W)");
       this.t=k.t;
       this.a=k.a;
     return;
@@ -47,7 +47,7 @@ Wormbasedpsi = function(t,a){
     this.t="+";
     this.a=new Array(parseInt(t));
     for(var i=0;i<this.a.length;i++){
-      this.a[i]=new Kuma3ary("1");
+      this.a[i]=new Wormbasedpsi("1");
     }
     return;
   }
