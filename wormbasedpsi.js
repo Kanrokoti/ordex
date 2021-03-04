@@ -277,12 +277,44 @@ Wormbasedpsi.prototype.dom=function(){
 Wormbasedpsi.prototype.expand=function(Y){
   if(!Y instanceof Wormbasedpsi) throw new Error("Y is not Wormbasedpsi object.");
   var dom = function(A){return A.dom();};
+  var eq = Wormbasedpsi.eq;
   var lt = Wormbasedpsi.lt;
   var k0 = Wormbasedpsi.k0;
   var k1 = Wormbasedpsi.k1;
   var kw = Wormbasedpsi.kw;
   var X  = this;
   var newk = function(X_1,X_2){return new Wormbasedpsi(",",[X_1,X_2]);};
+  var seek = function(X,X_1,X_mb'){
+                       var m = X.a.length;
+                       var i;  var k = -1;
+                       for(i = 0; i < m-1; i++){
+                         if(eq(X.a[i].a[0],X_1) && eq(X.a[i].a[1],X_mb')){
+                           k = i;
+                         }
+                       }
+                       return k;
+                   };
+  var detG = function(X,k,j){
+                       var m = X.a.length;
+                       var X_m = X.a[m-1];
+                       if(j = 0 && K != -1){
+                         var X_k_t0__X__mm1 = X.slice(k+1,m-1);
+                         return X_k_t0__X__mm1.addright(X_m.expand(k1));
+                       }else if(j = 0){
+                         var X_0_t0__X__mm1 = X.slice(0,m-1);
+                         return X_k_t0__X__mm1.addright(X_m.expand(k1));
+                       }else{
+                         return new Wormbasedpsi("+",[detG(X,k,0),detG(X,k,j-1)]);
+                       }
+                   };
+  
+  var detg = function(X,k){
+                       if(K != -1){
+                         return X.slice(0,k);
+                       }else{
+                         return detG(X,k,0);
+                       }
+                   };
   /* 1.            もしX=0ならば、    X[Y]=0である。 */
                     if(X.iszero()) return k0;
   /* 2. ここでX=ψ_{X_1}(X_2)を満たす(X_1,X_2)∈T^2が存在するとする。 */
@@ -340,6 +372,7 @@ Wormbasedpsi.prototype.expand=function(Y){
                         var h=Y.toint();
                         if(1<=h && h!=-1){
                           var X_mb' = X_m.a[1].expand(k0);
+                          var k = seek(X,X_m.a[0],X_mb');
                           var j = h;
                           
                            
