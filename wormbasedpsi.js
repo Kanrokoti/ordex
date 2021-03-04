@@ -374,8 +374,7 @@ Wormbasedpsi.prototype.expand=function(Y){
                           var X_mb' = X_m.a[1].expand(k0);
                           var k = seek(X,X_m.a[0],X_mb');
                           var j = h;
-                          
-                           
+                          return new Wormbasedpsi("+",[detg(X,k),detG(X,k,j)]);
                         }else{
                           var X_1_t0__X__mm1 = X.slice(0,m-1);
                           return X_1_t0__X__mm1.addright(X_m.expand(k1));
